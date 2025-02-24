@@ -2,8 +2,27 @@ from urllib.parse import urlparse
 from typing import Optional
 from botocore.exceptions import ClientError
 from tqdm import tqdm
+from common.types.types import Mail
 
 import os, requests, asyncio, boto3
+
+
+
+def parse_mail(mail_data: tuple) -> Mail:
+    """
+    Apple Mail의 SQLite 데이터베이스에서 가져온 메일 데이터를 Mail 타입으로 변환합니다.
+    """
+    subject, summary, sender, date_received = mail_data
+
+    mail = Mail(
+        subject=subject,
+        summary=summary,
+        sender=sender,
+        date_received=date_received
+    )
+
+    return mail
+
 
 
 def download_file(url: str, save_dir: Optional[str] = None, default_filename: str = "temp_downloaded.docx") -> str:

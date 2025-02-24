@@ -1,0 +1,1 @@
+MAIL_DIRECTORY = "~/Library/Mail/V10/MailData/Envelope Index"
