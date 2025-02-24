@@ -13,7 +13,10 @@ def main():
     ]
 
     # 2. Get Events from Mails
-    mails = extract_events(mails)
+    mails = extract_events(
+        mails=mails,
+        batch_size=10
+    )
 
 
 if __name__ == "__main__":

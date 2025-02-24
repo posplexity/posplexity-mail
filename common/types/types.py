@@ -4,14 +4,16 @@ from datetime import datetime
 class OfflineEvent(BaseModel):
     subject: str
     title: str
-    date: datetime
+    start_datetime: datetime
+    end_datetime: datetime=None
     location: str
     explanation: str
 
 class OnlineEvent(BaseModel):
     subject: str
     title: str
-    date: datetime
+    start_datetime: datetime
+    end_datetime: datetime=None
     url: str
     explanation: str
 
