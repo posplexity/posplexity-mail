@@ -18,6 +18,12 @@ def main():
         batch_size=10
     )
 
+    # TODO : 2-1. Add to DB
+
+    # TODO : 3. Make priority based on user query
+
+    # TODO : 4. Make & Send Personalized Email 
+
 
 if __name__ == "__main__":
     main()

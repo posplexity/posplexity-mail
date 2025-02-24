@@ -13,7 +13,6 @@ def extract_events(mails: list[dict], batch_size: int = 5) -> list[dict]:
     # 배치 단위로 처리
     for i in range(0, len(mails), batch_size):
         batch, async_task = mails[i:i + batch_size], []
-        # TODO : parse해서 보도록 코드 수정, url -> zoom 아니면 없게 prompt 수정, 없으면 왜 없는지 이유 뱉기
         for mail in batch:
             async_task.append(
                 run_gemini(
@@ -24,12 +23,13 @@ def extract_events(mails: list[dict], batch_size: int = 5) -> list[dict]:
                 )
             )
         main_events = asyncio.run(async_wrapper(async_task))
-        for idx, event in enumerate(main_events):
-            print(f"MAIL {idx}")
-            print(f"offline_events: {event[0].offline_events}")
-            print(f"online_events: {event[0].online_events}\n")
-
-        breakpoint()
+        
+        # 각 메일에 이벤트 정보 업데이트
+        for mail, event in zip(batch, main_events):
+            mail.events = event[0]
+            print(f"MAIL {len(processed_mails)}")
+            print(f"events: {mail.events}\n")
+        
         processed_mails.extend(batch)
         
     return processed_mails
