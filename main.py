@@ -16,12 +16,5 @@ def main():
     mails = extract_events(mails)
 
 
-    batch_size = 5  # 한 번에 처리할 메일 수
-    for i in range(0, len(mails), batch_size):
-        batch_mails = mails[i:i + batch_size]
-        for mail in batch_mails:
-
-
-
 if __name__ == "__main__":
     main()

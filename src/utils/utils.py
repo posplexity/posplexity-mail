@@ -20,7 +20,6 @@ def parse_mail(mail_data: tuple) -> Mail:
         sender=sender,
         date_received=date_received
     )
-
     return mail
 
 

@@ -6,17 +6,22 @@ class OfflineEvent(BaseModel):
     title: str
     date: datetime
     location: str
+    explanation: str
 
 class OnlineEvent(BaseModel):
     subject: str
     title: str
     date: datetime
     url: str
+    explanation: str
+
+class Events(BaseModel):
+    offline_events: list[OfflineEvent]
+    online_events: list[OnlineEvent]
 
 class Mail(BaseModel):
     subject: str
     summary: str
     sender: str
     date_received: str
-    offline_events: list[OfflineEvent]=[]
-    online_events: list[OnlineEvent]=[]
+    events: Events=None

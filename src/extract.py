@@ -1,7 +1,8 @@
-from common.types.types import Mail, OfflineEvent, OnlineEvent
+from common.types.types import Events
 from src.llm_wrapper.gemini.inference import run_gemini
 from src.utils.utils import async_wrapper
 
+import asyncio
 
 def extract_events(mails: list[dict], batch_size: int = 5) -> list[dict]:
     """
@@ -11,15 +12,18 @@ def extract_events(mails: list[dict], batch_size: int = 5) -> list[dict]:
     
     # 배치 단위로 처리
     for i in range(0, len(mails), batch_size):
-        batch = mails[i:i + batch_size]
-        
+        batch, async_task = mails[i:i + batch_size], []
+        # TODO : start time, end time 추가, parse해서 보도록 코드 수정, url -> zoom 아니면 없게 prompt 수정, 없으면 왜 없는지 이유 뱉기
         for mail in batch:
-            async_task = [
+            async_task.append(
                 run_gemini(
-                    target_prompt=
+                    target_prompt=str(mail.__dict__),
+                    prompt_in_path="extract.json",
+                    output_structure=Events,
+                    model="gemini-2.0-flash"
                 )
-            ]    
-            
+            )
+        main_events = asyncio.run(async_wrapper(async_task))
         processed_mails.extend(batch)
         
     return processed_mails
