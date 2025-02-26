@@ -19,8 +19,10 @@ def main():
     )
 
     # TODO : 2-1. Add to DB
+    
 
     # TODO : 3. Make priority based on user query
+    
 
     # TODO : 4. Make & Send Personalized Email 
 
